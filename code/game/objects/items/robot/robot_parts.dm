@@ -200,13 +200,9 @@
 				user << "<span class='warning'>Sticking a dead [W] into the frame would sort of defeat the purpose.</span>"
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg"))
-				user << "<span class='warning'>\The [W] does not seem to fit.</span>"
-				return
-
 			if(!src.head.law_manager)
 
-				if(!is_alien_whitelisted(M.brainmob, "Machine") && config.usealienwhitelist)
+				if(!is_alien_whitelisted(M.brainmob, src.chest.linked_frame) && config.usealienwhitelist)
 					user << "<span class='warning'>\The [W] does not seem to fit.</span>"
 					return
 
@@ -225,6 +221,11 @@
 				return
 
 			else
+
+				if(jobban_isbanned(M.brainmob, "Cyborg"))
+					user << "<span class='warning'>\The [W] does not seem to fit.</span>"
+					return
+
 				var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), TRUE)
 				if(!O)	return
 
@@ -363,7 +364,7 @@
 
 /obj/item/robot_parts/chest/synthskin
 	name = "Human synthskin torso"
-	linked_frame = "Hephaestus G1 Industrial Frame"
+	linked_frame = "Shell Frame"
 
 /obj/item/robot_parts/chest/xion
 	name = "Xion manufacturing group torso"
@@ -375,4 +376,4 @@
 
 /obj/item/robot_parts/chest/industrial
 	name = "Hephaestus industrial torso"
-	linked_frame = "Bishop Accessory Frame"
+	linked_frame = "Hephaestus G1 Industrial Frame"
