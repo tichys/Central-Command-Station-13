@@ -216,6 +216,10 @@ INITIALIZE_IMMEDIATE(/mob/abstract/new_player)
 		handle_player_polling()
 		return
 
+	if(href_list["showpolllink"])
+		show_poll_link(href_list["showpolllink"])
+		return
+
 	if(href_list["pollid"])
 
 		var/pollid = href_list["pollid"]
@@ -431,10 +435,9 @@ INITIALIZE_IMMEDIATE(/mob/abstract/new_player)
 	new_character.dna.ready_dna(new_character)
 	new_character.dna.b_type = client.prefs.b_type
 	new_character.sync_organ_dna()
-	if(client.prefs.disabilities)
+	if(client.prefs.disabilities & NEARSIGHTED)
 		// Set defer to 1 if you add more crap here so it only recalculates struc_enzymes once. - N3X
 		new_character.dna.SetSEState(GLASSESBLOCK,1,0)
-		new_character.disabilities |= NEARSIGHTED
 
 	// And uncomment this, too.
 	//new_character.dna.UpdateSE()
